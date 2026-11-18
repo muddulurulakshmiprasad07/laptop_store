@@ -1,0 +1,683 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laptop Store | Premium Technology</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f4f6fa;
+    color: #172033;
+    overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+    min-height: 75px;
+    padding: 15px 7%;
+    background: #101c35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0,0,0,.15);
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #42d6ff;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: #42d6ff;
+}
+
+.menu-btn {
+    display: none;
+    border: 0;
+    background: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* HERO */
+.hero {
+    min-height: 440px;
+    padding: 75px 9%;
+    background: linear-gradient(120deg, #101c35, #173f70, #087fa9);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 600px;
+    z-index: 2;
+    animation: slideIn 1s ease;
+}
+
+.hero-content small {
+    color: #42d6ff;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.hero-content h1 {
+    font-size: clamp(35px, 5vw, 58px);
+    line-height: 1.15;
+    margin: 20px 0;
+}
+
+.hero-content h1 span {
+    color: #42d6ff;
+}
+
+.hero-content p {
+    color: #d5e5f4;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.shop-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    background: #42d6ff;
+    color: #101c35;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: .3s;
+}
+
+.shop-btn:hover {
+    background: white;
+    transform: translateY(-5px);
+}
+
+.hero-visual {
+    font-size: 170px;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 20px 25px rgba(0,0,0,.3));
+}
+
+/* DECORATIVE MOTION */
+.circle {
+    position: absolute;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 50%;
+    animation: rotate 18s linear infinite;
+}
+
+.circle.one {
+    width: 300px;
+    height: 300px;
+    right: 8%;
+    top: 10%;
+}
+
+.circle.two {
+    width: 400px;
+    height: 400px;
+    right: 4%;
+    top: -5%;
+    animation-direction: reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* BENEFITS */
+.benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 30px 8%;
+    background: white;
+}
+
+.benefit {
+    text-align: center;
+    padding: 15px;
+}
+
+.benefit h3 {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+.benefit p {
+    font-size: 13px;
+    color: #777;
+}
+
+/* PRODUCTS SECTION */
+.products-section {
+    padding: 65px 7%;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-heading small {
+    color: #087fa9;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.section-heading h2 {
+    font-size: 34px;
+    margin: 10px 0;
+}
+
+.section-heading p {
+    color: #777;
+}
+
+/* FILTERS */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.search-input, .brand-filter {
+    padding: 13px 16px;
+    border: 1px solid #dce2eb;
+    background: white;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-input {
+    width: min(350px, 100%);
+}
+
+.brand-filter {
+    min-width: 180px;
+}
+
+.search-input:focus, .brand-filter:focus {
+    border-color: #087fa9;
+}
+
+/* PRODUCT GRID */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(20,40,70,.07);
+    transition: transform .4s, box-shadow .4s;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.product-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(20,40,70,.15);
+}
+
+.product-image {
+    height: 220px;
+    padding: 20px;
+    background: #f7f9fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform .5s;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.08);
+}
+
+.no-image {
+    font-size: 65px;
+    color: #9ba9bd;
+}
+
+.product-details {
+    padding: 22px;
+}
+
+.brand {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #e6f8ff;
+    color: #087fa9;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.product-details h3 {
+    font-size: 19px;
+    margin: 13px 0 8px;
+}
+
+.description {
+    color: #777;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 44px;
+}
+
+.price {
+    color: #087fa9;
+    font-size: 23px;
+    font-weight: 800;
+    margin: 17px 0;
+}
+
+.buy-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: #101c35;
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.buy-btn:hover {
+    background: #087fa9;
+}
+
+.empty-message {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    color: #777;
+    grid-column: 1 / -1;
+}
+
+/* FOOTER */
+footer {
+    background: #101c35;
+    color: white;
+    padding: 40px 7%;
+    text-align: center;
+}
+
+footer h2 {
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #bac7d9;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-visual {
+        font-size: 110px;
+    }
+}
+
+@media(max-width: 650px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hero {
+        min-height: 380px;
+        padding: 50px 7%;
+    }
+
+    .hero-visual {
+        display: none;
+    }
+
+    .benefits {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2 {
+        font-size: 27px;
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input, .brand-filter {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">LAPTOP<span>STORE.</span></div>
+
+    <button class="menu-btn" id="menuBtn" type="button">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+        <a href="#">Home</a>
+        <a href="#products">Laptops</a>
+        <a href="#benefits">Our Services</a>
+        <a href="#contact">Contact</a>
+        <a href="/admin/">Admin Login</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+
+    <div class="hero-content">
+        <small>WELCOME TO LAPTOP STORE</small>
+
+        <h1>Power Your World With <span>Technology.</span></h1>
+
+        <p>
+            Discover premium laptops from leading brands.
+            Find the perfect laptop for your work, education
+            and entertainment.
+        </p>
+
+        <a href="#products" class="shop-btn">Explore Laptops →</a>
+    </div>
+
+    <div class="hero-visual">💻</div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+    <div class="benefit">
+        <div style="font-size:30px;">🚚</div>
+        <h3>Fast Delivery</h3>
+        <p>Convenient delivery for your orders.</p>
+    </div>
+
+    <div class="benefit">
+        <div style="font-size:30px;">🛡️</div>
+        <h3>Quality Products</h3>
+        <p>Explore laptops from trusted brands.</p>
+    </div>
+
+    <div class="benefit">
+        <div style="font-size:30px;">💬</div>
+        <h3>Customer Support</h3>
+        <p>We're here to help with your shopping.</p>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+
+    <div class="section-heading">
+        <small>OUR COLLECTION</small>
+        <h2>Explore Our Laptops</h2>
+        <p>Find your perfect laptop from our collection.</p>
+    </div>
+
+    <!-- SEARCH AND FILTER -->
+    <div class="filters">
+        <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Search laptop or brand..."
+        >
+
+        <select class="brand-filter" id="brandFilter">
+            <option value="all">All Brands</option>
+
+            {% for laptop in laptops %}
+                <option value="{{ laptop.brand|lower }}">
+                    {{ laptop.brand }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- DYNAMIC PRODUCT CARDS -->
+    <div class="product-grid" id="productGrid">
+
+        {% for laptop in laptops %}
+
+        <article class="product-card"
+            data-brand="{{ laptop.brand|lower }}"
+            data-search="{{ laptop.name|lower }} {{ laptop.brand|lower }} {{ laptop.description|lower }}">
+
+            <div class="product-image">
+
+                {% if laptop.image %}
+                    <img
+                        src="{{ laptop.image }}"
+                        alt="{{ laptop.name }}"
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                    >
+                    <div class="no-image" style="display:none;">💻</div>
+                {% else %}
+                    <div class="no-image">💻</div>
+                {% endif %}
+
+            </div>
+
+            <div class="product-details">
+
+                <span class="brand">{{ laptop.brand }}</span>
+
+                <h3>{{ laptop.name }}</h3>
+
+                <p class="description">
+                    {{ laptop.description }}
+                </p>
+
+                <div class="price">
+                    ₹{{ laptop.price|floatformat:2 }}
+                </div>
+
+                <a href="/admin/laptop_store/laptop/"
+                   class="buy-btn">
+                    View Product
+                </a>
+
+            </div>
+        </article>
+
+        {% empty %}
+
+        <div class="empty-message" style="display:block;">
+            <h2>No Laptops Available Yet!</h2>
+            <p>Please add laptop products through Django Admin.</p>
+        </div>
+
+        {% endfor %}
+
+        <div class="empty-message" id="noResults">
+            <h2>No matching laptops found!</h2>
+            <p>Try another product name or brand.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <h2>LAPTOP STORE.</h2>
+    <p>Technology that powers your future.</p>
+    <p>© 2026 Laptop Store. All Rights Reserved.</p>
+</footer>
+
+<script>
+// MOBILE MENU
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+// SEARCH AND BRAND FILTER
+const searchInput = document.getElementById("searchInput");
+const brandFilter = document.getElementById("brandFilter");
+const cards = document.querySelectorAll(".product-card");
+const noResults = document.getElementById("noResults");
+
+function filterProducts() {
+    const searchValue = searchInput.value.toLowerCase().trim();
+    const selectedBrand = brandFilter.value.toLowerCase();
+
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const searchData = card.dataset.search;
+        const brand = card.dataset.brand;
+
+        const matchesSearch = searchData.includes(searchValue);
+        const matchesBrand =
+            selectedBrand === "all" || brand === selectedBrand;
+
+        if (matchesSearch && matchesBrand) {
+            card.style.display = "block";
+            visibleCount++;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    noResults.style.display =
+        visibleCount === 0 ? "block" : "none";
+}
+
+searchInput.addEventListener("input", filterProducts);
+brandFilter.addEventListener("change", filterProducts);
+
+// SCROLL ANIMATION
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+cards.forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html>
